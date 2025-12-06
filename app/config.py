@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables"""
     
     database_url: str = "sqlite:///./mealmate.db"
-    secret_key: str
+    secret_key: str = "dev-secret-key-change-in-production-minimum-32-characters-long"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     firebase_credentials_path: str = "./firebase-credentials.json"
