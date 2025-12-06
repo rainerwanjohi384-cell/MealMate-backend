@@ -1,8 +1,8 @@
 #!/bin/bash
 # Script to run the FastAPI application
 
-echo "🚀 Starting MealMate Backend Server"
-echo "==================================="
+echo "Starting MealMate Backend Server"
+echo "================================="
 
 # Activate virtual environment if it exists
 if [ -d "venv" ]; then
@@ -11,7 +11,7 @@ fi
 
 # Check if .env file exists
 if [ ! -f ".env" ]; then
-    echo "⚠️  Warning: .env file not found. Using default configuration."
+    echo "Warning: .env file not found. Using default configuration."
     echo "   Copy .env.example to .env and configure it."
 fi
 

@@ -1,47 +1,47 @@
-# MealMate Backend - Docker Commands
+# Docker Setup
 
-## Quick Start with Docker
+## Using docker-compose (easiest way)
 
-### Build and run with docker-compose:
+Start the application:
 ```bash
 docker-compose up -d
 ```
 
-### Stop the application:
+Stop it:
 ```bash
 docker-compose down
 ```
 
-### View logs:
+View logs:
 ```bash
 docker-compose logs -f backend
 ```
 
-### Rebuild after code changes:
+Rebuild after changes:
 ```bash
 docker-compose up -d --build
 ```
 
-## Manual Docker Commands
+## Manual Docker commands
 
-### Build the image:
+Build:
 ```bash
 docker build -t mealmate-backend .
 ```
 
-### Run the container:
+Run:
 ```bash
 docker run -d -p 8000:8000 --name mealmate-backend mealmate-backend
 ```
 
-### Stop and remove container:
+Stop:
 ```bash
 docker stop mealmate-backend
 docker rm mealmate-backend
 ```
 
-## Access the Application
+## Access
 
 - API: http://localhost:8000
-- API Documentation: http://localhost:8000/docs
-- Health Check: http://localhost:8000/health
+- Docs: http://localhost:8000/docs
+- Health: http://localhost:8000/health

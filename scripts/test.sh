@@ -1,8 +1,8 @@
 #!/bin/bash
 # Script to run tests
 
-echo "🧪 Running MealMate Backend Tests"
-echo "================================="
+echo "Running MealMate Backend Tests"
+echo "==============================="
 
 # Activate virtual environment if it exists
 if [ -d "venv" ]; then
@@ -16,10 +16,10 @@ pytest tests/ -v --cov=app --cov-report=term-missing --cov-report=html
 # Check test results
 if [ $? -eq 0 ]; then
     echo ""
-    echo "✅ All tests passed!"
-    echo "📊 Coverage report generated in htmlcov/index.html"
+    echo "All tests passed!"
+    echo "Coverage report generated in htmlcov/index.html"
 else
     echo ""
-    echo "❌ Some tests failed. Please check the output above."
+    echo "Some tests failed. Please check the output above."
     exit 1
 fi
