@@ -1,39 +1,34 @@
-# 🍽️ MealMate Backend API
+# MealMate Backend API
 
 [![CI/CD](https://github.com/rainerwanjohi384-cell/MealMate-backend/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/rainerwanjohi384-cell/MealMate-backend/actions)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688.svg)](https://fastapi.tiangolo.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Your Personal Recipe & Meal Planner Backend**
+Backend API for the MealMate recipe and meal planning application. This is a FastAPI project with JWT authentication, testing, and Docker support.
 
-MealMate is a FastAPI-based backend service that powers a web application for organizing personal recipes and planning weekly meals. Built with modern Python practices, it features JWT authentication, comprehensive testing, and containerized deployment.
+> Note: This is part of a group project where I'm handling the DevOps, testing, and deployment setup.
 
-## 🚀 Features
+## Features
 
-- **User Authentication**: Firebase Google login integration with JWT tokens
-- **Recipe Management**: Full CRUD operations for recipes with categorization
-- **Meal Planning**: Weekly meal planning with recipe assignments
-- **Secure API**: Token-based authentication and authorization
-- **RESTful Design**: Clean, well-documented API endpoints
-- **Comprehensive Testing**: 90%+ test coverage with pytest
-- **Containerized**: Docker and docker-compose ready
-- **CI/CD**: Automated testing and deployment with GitHub Actions
+- User authentication with Firebase and JWT tokens
+- Recipe management (create, read, update, delete)
+- Weekly meal planning
+- Token-based authorization
+- RESTful API endpoints
+- Pytest test suite
+- Docker support
+- GitHub Actions CI/CD
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Technology Stack](#technology-stack)
-- [Quick Start](#quick-start)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
 - [Testing](#testing)
-- [Deployment](#deployment)
 - [Project Structure](#project-structure)
-- [Contributing](#contributing)
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Component | Technology |
 |-----------|------------|
@@ -46,9 +41,9 @@ MealMate is a FastAPI-based backend service that powers a web application for or
 | CI/CD | GitHub Actions |
 | API Docs | Swagger/OpenAPI (auto-generated) |
 
-## ⚡ Quick Start
+## Quick Start
 
-### Using Docker (Recommended)
+### Using Docker
 
 ```bash
 # Clone the repository
@@ -75,7 +70,7 @@ open http://localhost:8000/docs
 ./scripts/test.sh
 ```
 
-## 📥 Installation
+## Installation
 
 ### Prerequisites
 
@@ -114,7 +109,7 @@ open http://localhost:8000/docs
    uvicorn app.main:app --reload
    ```
 
-## ⚙️ Configuration
+## Configuration
 
 Create a `.env` file in the project root with the following variables:
 
@@ -145,7 +140,7 @@ ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
 | `FIREBASE_CREDENTIALS_PATH` | Path to Firebase credentials | `./firebase-credentials.json` |
 | `ALLOWED_ORIGINS` | CORS allowed origins | `http://localhost:3000` |
 
-## 🏃 Running the Application
+## Running the Application
 
 ### Development Mode
 
@@ -174,7 +169,7 @@ gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
 - **Alternative API Docs**: http://localhost:8000/redoc
 - **Health Check**: http://localhost:8000/health
 
-## 📚 API Documentation
+## API Documentation
 
 ### Authentication
 
@@ -236,7 +231,7 @@ curl -X POST "http://localhost:8000/api/meal-plans" \
 
 For complete API documentation, visit http://localhost:8000/docs after starting the server.
 
-## 🧪 Testing
+## Testing
 
 ### Run All Tests
 
@@ -269,7 +264,7 @@ pytest tests/test_api.py -v
 pytest tests/test_api.py::test_create_recipe -v
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Docker Deployment
 
@@ -305,7 +300,7 @@ The project includes GitHub Actions workflows for:
 
 See `.github/workflows/` for configuration.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 MealMate-backend/
@@ -345,7 +340,7 @@ MealMate-backend/
 └── README.md               # This file
 ```
 
-## 🗃️ Database Schema
+## Database Schema
 
 ### Users Table
 - `id`: Primary key
@@ -374,9 +369,9 @@ MealMate-backend/
 - `planned_date`: Optional planned date
 - `created_at`, `updated_at`: Timestamps
 
-## 👥 Contributing
+## Contributing
 
-This project is part of a group project. To contribute:
+This is a group project. To contribute:
 
 1. **Create a feature branch**
    ```bash
@@ -411,21 +406,13 @@ We follow conventional commits:
 - `ci:` CI/CD changes
 - `devops:` DevOps/deployment changes
 
-## 📝 License
-
-This project is licensed under the MIT License.
-
-## 🤝 Team Roles
+## Team Roles
 
 - **Frontend Developer**: React UI implementation
 - **Backend Developer**: API endpoints and business logic
 - **Database Administrator**: Schema design and optimization
 - **DevOps Engineer**: CI/CD, testing, deployment, and integration (this repository)
 
-## 📧 Contact
+## Contact
 
-For questions or issues, please open an issue on GitHub.
-
----
-
-Made with ❤️ by the MealMate Team
+For questions, open an issue on GitHub.
