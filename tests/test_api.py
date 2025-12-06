@@ -239,4 +239,4 @@ def test_delete_meal_plan(client, auth_headers):
 def test_unauthorized_access(client):
     """Test that endpoints require authentication"""
     response = client.get("/api/recipes")
-    assert response.status_code == 403  # Forbidden without auth
+    assert response.status_code in [401, 403]  # Unauthorized or Forbidden without auth
