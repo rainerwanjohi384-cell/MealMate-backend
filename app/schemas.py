@@ -18,8 +18,7 @@ class UserResponse(UserBase):
     firebase_uid: str
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # Recipe Schemas
@@ -49,8 +48,7 @@ class RecipeResponse(RecipeBase):
     created_at: datetime
     updated_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # Meal Plan Schemas
@@ -81,8 +79,7 @@ class MealPlanResponse(MealPlanBase):
     updated_at: datetime
     recipe: Optional[RecipeResponse] = None
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 
 # Token Schemas

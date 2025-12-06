@@ -21,8 +21,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+
+@app.on_event("startup")
+def create_tables():
+    """Create database tables on startup"""
+    Base.metadata.create_all(bind=engine)
+
 
 # Include routers
 app.include_router(users.router)
