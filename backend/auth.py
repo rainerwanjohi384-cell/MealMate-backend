@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Header, Depends
 from sqlalchemy.orm import Session
-from backend.database import get_db
+from database import get_db
 import models.user as user_models
 
 # Temporary mock authentication for testing
@@ -23,7 +23,7 @@ def verify_token(authorization: str = Header(None), db: Session = Depends(get_db
             db.add(db_user)
             db.commit()
             db.refresh(db_user)
-
         return db_user.user_id
     except Exception as e:
         raise HTTPException(status_code=401, detail="Authentication failed")
+

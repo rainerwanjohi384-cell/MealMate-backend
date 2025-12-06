@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Importing the routers
 from routers import recipes, meal_plans, users
-from backend.database import Base, engine
+from database import Base, engine  # Removed "backend." prefix
 
 # This creates the tables
 Base.metadata.create_all(bind=engine)
@@ -30,3 +30,4 @@ app.include_router(users.router)
 @app.get("/")
 def home():
     return {"message": "MealMate Backend Running"}
+
