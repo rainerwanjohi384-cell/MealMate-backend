@@ -107,7 +107,7 @@ def update_meal_plan(
         )
     
     # Update fields if provided
-    update_data = meal_plan_data.dict(exclude_unset=True)
+    update_data = meal_plan_data.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(meal_plan, field, value)
     

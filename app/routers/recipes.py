@@ -91,7 +91,7 @@ def update_recipe(
         )
     
     # Update fields if provided
-    update_data = recipe_data.dict(exclude_unset=True)
+    update_data = recipe_data.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(recipe, field, value)
     

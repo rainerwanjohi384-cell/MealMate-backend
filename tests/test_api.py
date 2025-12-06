@@ -69,7 +69,7 @@ def test_create_recipe(client, auth_headers):
         "category": "Breakfast"
     }
     response = client.post("/api/recipes", json=recipe_data, headers=auth_headers)
-    assert response.status_code == 200
+    assert response.status_code == 201
     data = response.json()
     assert data["name"] == recipe_data["name"]
     assert data["category"] == recipe_data["category"]
@@ -144,7 +144,7 @@ def test_delete_recipe(client, auth_headers):
     
     # Delete the recipe
     response = client.delete(f"/api/recipes/{recipe_id}", headers=auth_headers)
-    assert response.status_code == 200
+    assert response.status_code == 204
     
     # Verify it's deleted
     get_response = client.get(f"/api/recipes/{recipe_id}", headers=auth_headers)
