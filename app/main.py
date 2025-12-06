@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.database import engine, Base
+from app.routers import users, recipes, meal_plans
 
 # Create FastAPI app
 app = FastAPI(
@@ -22,6 +23,11 @@ app.add_middleware(
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
+
+# Include routers
+app.include_router(users.router)
+app.include_router(recipes.router)
+app.include_router(meal_plans.router)
 
 
 @app.get("/")
