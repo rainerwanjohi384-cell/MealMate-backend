@@ -1,10 +1,12 @@
 from pydantic import BaseModel
 
 class RecipeBase(BaseModel):
-    name: str
+    title: str
     ingredients: str
     instructions: str
     category: str | None = None
+    prep_time: int | None = None
+    image_url: str | None = None
 
 class RecipeCreate(RecipeBase):
     pass
@@ -15,3 +17,4 @@ class Recipe(RecipeBase):
 
     class Config:
         from_attributes = True
+
