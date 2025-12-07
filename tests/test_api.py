@@ -170,7 +170,7 @@ def test_create_meal_plan(client, auth_headers):
         "meal_type": "Breakfast"
     }
     response = client.post("/api/meal-plans", json=meal_plan_data, headers=auth_headers)
-    assert response.status_code == 200
+    assert response.status_code == 201
     data = response.json()
     assert data["day_of_week"] == "Monday"
     assert data["recipe_id"] == recipe_id
@@ -232,7 +232,7 @@ def test_delete_meal_plan(client, auth_headers):
     
     # Delete meal plan
     response = client.delete(f"/api/meal-plans/{meal_plan_id}", headers=auth_headers)
-    assert response.status_code == 200
+    assert response.status_code == 204
 
 
 # Authentication Tests

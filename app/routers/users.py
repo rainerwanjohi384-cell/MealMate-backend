@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import User
@@ -11,17 +11,22 @@ router = APIRouter(prefix="/api/users", tags=["users"])
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     """Register a new user with Firebase UID"""
-    # Check if user already exists
-    existing_user = db.query(User).filter(
-        (User.firebase_uid == user_data.firebase_uid) | (User.email == user_data.email)
-    ).first()
-    
-    if existing_user:
-        # User exists, return token
+    # Check if firebase_uid already exists
+    existing_firebase = db.query(User).filter(User.firebase_uid == user_data.firebase_uid).first()
+    if existing_firebase:
+        # User exists with this firebase_uid, return token
         access_token = create_access_token(
-            data={"user_id": existing_user.id, "firebase_uid": existing_user.firebase_uid}
+            data={"user_id": existing_firebase.id, "firebase_uid": existing_firebase.firebase_uid}
         )
         return {"access_token": access_token, "token_type": "bearer"}
+    
+    # Check if email already exists with different firebase_uid
+    existing_email = db.query(User).filter(User.email == user_data.email).first()
+    if existing_email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered with different account"
+        )
     
     # Create new user
     new_user = User(

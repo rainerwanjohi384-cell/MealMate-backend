@@ -23,9 +23,11 @@ app.add_middleware(
 
 
 @app.on_event("startup")
-def create_tables():
-    """Create database tables on startup"""
-    Base.metadata.create_all(bind=engine)
+def on_startup():
+    """Startup event handler"""
+    # Note: Use Alembic migrations for production
+    # Base.metadata.create_all(bind=engine)
+    pass
 
 
 # Include routers

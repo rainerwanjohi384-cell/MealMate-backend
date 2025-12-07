@@ -6,7 +6,15 @@ echo "================================================="
 
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
-    echo "Error: Python 3 is not installed. Please install Python 3.9 or higher."
+    echo "Error: Python 3 is not installed. Please install Python 3.9+ or higher."
+    exit 1
+fi
+
+# Check Python version
+PYTHON_VERSION=$(python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
+REQUIRED_VERSION="3.9"
+if [ "$(printf '%s\n' "$REQUIRED_VERSION" "$PYTHON_VERSION" | sort -V | head -n1)" != "$REQUIRED_VERSION" ]; then
+    echo "Error: Python 3.9+ is required. Current version: $PYTHON_VERSION"
     exit 1
 fi
 
