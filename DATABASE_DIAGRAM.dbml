@@ -1,0 +1,56 @@
+// MealMate Database Schema
+// Copy this code to https://dbdiagram.io to visualize
+
+Table users {
+  id integer [primary key, increment]
+  firebase_uid varchar(128) [unique, not null, note: 'Firebase authentication UID']
+  email varchar(255) [unique, not null]
+  name varchar(255) [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  indexes {
+    firebase_uid
+    email
+  }
+}
+
+Table recipes {
+  id integer [primary key, increment]
+  user_id integer [not null, ref: > users.id]
+  title varchar(255) [not null]
+  ingredients text [not null]
+  instructions text [not null]
+  category varchar(50) [note: 'Breakfast, Lunch, Dinner, Snack']
+  prep_time integer [note: 'Preparation time in minutes']
+  image_url varchar(512)
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  indexes {
+    user_id
+    category
+  }
+}
+
+Table meal_plans {
+  id integer [primary key, increment]
+  user_id integer [not null, ref: > users.id]
+  recipe_id integer [not null, ref: > recipes.id]
+  day_of_week varchar(10) [not null, note: 'Monday, Tuesday, Wednesday, etc.']
+  meal_type varchar(20) [note: 'breakfast, lunch, dinner']
+  week_start varchar(10) [note: 'Week start date in YYYY-MM-DD format']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  
+  indexes {
+    user_id
+    recipe_id
+    (user_id, week_start) [note: 'Composite index for efficient weekly queries']
+  }
+}
+
+// Relationships
+Ref: recipes.user_id > users.id [delete: cascade]
+Ref: meal_plans.user_id > users.id [delete: cascade]
+Ref: meal_plans.recipe_id > recipes.id [delete: cascade]

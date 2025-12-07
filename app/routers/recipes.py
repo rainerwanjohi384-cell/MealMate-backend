@@ -57,10 +57,11 @@ def create_recipe(
     """Create a new recipe"""
     new_recipe = Recipe(
         user_id=current_user.id,
-        name=recipe_data.name,
+        title=recipe_data.title,
         ingredients=recipe_data.ingredients,
         instructions=recipe_data.instructions,
         category=recipe_data.category,
+        prep_time=recipe_data.prep_time,
         image_url=recipe_data.image_url
     )
     

@@ -23,10 +23,11 @@ class UserResponse(UserBase):
 
 # Recipe Schemas
 class RecipeBase(BaseModel):
-    name: str
+    title: str
     ingredients: str
     instructions: str
     category: Optional[str] = None
+    prep_time: Optional[int] = None
     image_url: Optional[str] = None
 
 
@@ -35,10 +36,11 @@ class RecipeCreate(RecipeBase):
 
 
 class RecipeUpdate(BaseModel):
-    name: Optional[str] = None
+    title: Optional[str] = None
     ingredients: Optional[str] = None
     instructions: Optional[str] = None
     category: Optional[str] = None
+    prep_time: Optional[int] = None
     image_url: Optional[str] = None
 
 
@@ -56,7 +58,7 @@ class MealPlanBase(BaseModel):
     recipe_id: int
     day_of_week: str
     meal_type: Optional[str] = None
-    planned_date: Optional[datetime] = None
+    week_start: Optional[str] = None
 
 
 class MealPlanCreate(MealPlanBase):
@@ -67,16 +69,16 @@ class MealPlanUpdate(BaseModel):
     recipe_id: Optional[int] = None
     day_of_week: Optional[str] = None
     meal_type: Optional[str] = None
-    is_completed: Optional[int] = None
-    planned_date: Optional[datetime] = None
+    week_start: Optional[str] = None
 
 
-class MealPlanResponse(MealPlanBase):
+class MealPlanResponse(BaseModel):
     id: int
     user_id: int
-    is_completed: int
-    created_at: datetime
-    updated_at: datetime
+    recipe_id: int
+    day_of_week: str
+    meal_type: Optional[str] = None
+    week_start: Optional[str] = None
     recipe: Optional[RecipeResponse] = None
     
     model_config = {"from_attributes": True}

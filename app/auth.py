@@ -11,6 +11,15 @@ from app.schemas import TokenData
 
 security = HTTPBearer()
 
+# Optional: Firebase Admin SDK integration
+# Uncomment these lines if you want to verify Firebase tokens directly
+# import firebase_admin
+# from firebase_admin import auth as firebase_auth, credentials
+# 
+# if not firebase_admin._apps:
+#     cred = credentials.Certificate("path/to/serviceAccountKey.json")
+#     firebase_admin.initialize_app(cred)
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Create JWT access token"""
@@ -26,8 +35,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 
 def verify_token(token: str) -> TokenData:
-    """Verify and decode JWT token"""
+    """Verify and decode JWT token (our own or Firebase)"""
     try:
+        # First try to decode as our JWT
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         user_id: int = payload.get("user_id")
         firebase_uid: str = payload.get("firebase_uid")
@@ -40,6 +50,15 @@ def verify_token(token: str) -> TokenData:
         
         return TokenData(user_id=user_id, firebase_uid=firebase_uid)
     except JWTError:
+        # Optional: Try Firebase token verification
+        # Uncomment if using Firebase Admin SDK
+        # try:
+        #     decoded_token = firebase_auth.verify_id_token(token)
+        #     firebase_uid = decoded_token['uid']
+        #     return TokenData(firebase_uid=firebase_uid)
+        # except Exception:
+        #     pass
+        
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials"
@@ -54,7 +73,15 @@ async def get_current_user(
     token = credentials.credentials
     token_data = verify_token(token)
     
-    user = db.query(User).filter(User.id == token_data.user_id).first()
+    # Try to find user by ID first (our JWT)
+    if token_data.user_id:
+        user = db.query(User).filter(User.id == token_data.user_id).first()
+    # Fallback to Firebase UID (if Firebase token was verified)
+    elif token_data.firebase_uid:
+        user = db.query(User).filter(User.firebase_uid == token_data.firebase_uid).first()
+    else:
+        user = None
+    
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
