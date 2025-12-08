@@ -73,7 +73,7 @@ Check API docs at http://localhost:8000/docs
 
 ### Commits
 
-17 commits following conventional commit format (feat:, test:, docs:, ci:, fix:, devops:). Each commit is a logical unit of work.
+18 commits following conventional commit format (feat:, test:, docs:, ci:, fix:, devops:). Each commit is a logical unit of work.
 
 ### Related Work
 
